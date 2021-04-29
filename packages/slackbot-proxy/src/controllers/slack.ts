@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import { parseSlashCommand } from '@growi/slack';
 import { Installation } from '~/entities/installation';
+import { Order } from '~/entities/order';
 
 import { InstallationRepository } from '~/repositories/installation';
 import { RelationRepository } from '~/repositories/relation';
@@ -140,6 +141,13 @@ export class SlackCtrl {
       const inputProxyAccessToken = inputValues.proxyToken.contents_input.value;
 
       const order = await this.orderRepository.findOne({ installation: installation?.id, growiUrl: inputGrowiUrl });
+
+      const orderI = new Order();
+      if (orderI.isExpired()) {
+        console.log('order is expiredだよ');
+        return res.send('order is expired');
+      }
+      console.log('order is not expiredだよ');
       if (order != null) {
         this.orderRepository.update(
           { installation: installation?.id, growiUrl: inputGrowiUrl },
