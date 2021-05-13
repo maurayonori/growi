@@ -38,7 +38,7 @@ const SlackIntegration = (props) => {
         setSlackWSNameInWithoutProxy(workspaceName);
       }
 
-      setCurrentBotType(currentBotType);
+      setCurrentBotType(data.currentBotType);
       setSlackSigningSecret(slackSigningSecret);
       setSlackBotToken(slackBotToken);
       setSlackSigningSecretEnv(slackSigningSecretEnvVars);
